@@ -10,6 +10,8 @@ class Player:
         if getattr(self.current_room, f"{direction}_to") is not None:
             self.current_room = getattr(self.current_room, f"{direction}_to")
             print(self.current_room)
+            for item in self.current_room.items:
+                print(f"Items in this Room: {item.name}")
         else:
             print("You cannot move in that direction")
 

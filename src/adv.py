@@ -1,6 +1,6 @@
 from room import Room
 from player import Player
-from item import Item, Food
+from item import Item, Food, Weapon, Gun
 # Declare all the rooms
 
 room = {
@@ -36,9 +36,12 @@ room['treasure'].s_to = room['narrow']
 
 rock = Item("rock", "This is a rock.")
 sandwich = Food("sandwich", "some normal sandwiches", 100)
+gun = Gun()
 #
 # Main
 #
+
+room['outside'].items.append(gun)
 
 # Make a new player object that is currently in the 'outside' room.
 
@@ -63,13 +66,34 @@ print(f"Hello , {player.name}")
 while True:
     # READ
     cmd = input("\n~~~> ")
+    cmd_list = cmd.split(" ")
     # EVAL
-    if cmd == "q":
-        print("Goodbye!")
-        exit(0)
-    elif cmd in ("n", "s", "e", "w"):
-        player.travel(cmd)
-    elif cmd == 'i':
-        player.print_inventory()
+    if len(cmd_list) == 1:
+        if cmd == "q":
+            print("Goodbye!")
+            exit(0)
+        elif cmd in ("n", "s", "e", "w"):
+            player.travel(cmd)
+        elif cmd == 'i':
+            player.print_inventory()
+    if len(cmd_list) == 2:
+        if cmd_list[0] == 'take':
+            for item in player.current_room.items:
+                if item.name == cmd_list[1]:
+                    player.items.append(item)
+            # player.current_room.items.remove(cmd_list[1])
+            print("the current room items list is: ")
+            player.current_room.get_items()
+            print("the player's items list is: ")
+            player.print_inventory()
+        if cmd_list[0] == 'drop':
+            player.current_room.items.append(cmd_list[1])
+            # player.items.remove(cmd_list[1])
+            print("the current room items list is: ")
+            for item in player.current_room.items:
+                print(f"{item}")
+            print("the player's items list is: ")
+            for item in player.items:
+                print(f"{item}")
     else:
         print("I did not understand the command!")
