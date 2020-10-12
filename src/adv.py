@@ -1,6 +1,6 @@
 from room import Room
 from player import Player
-
+from item import Item, Food
 # Declare all the rooms
 
 room = {
@@ -34,8 +34,8 @@ room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
 
-print(room['outside'].n_to.name)
-
+rock = Item("rock", "This is a rock.")
+sandwich = Food("sandwich", "some normal sandwiches", 100)
 #
 # Main
 #
@@ -43,7 +43,8 @@ print(room['outside'].n_to.name)
 # Make a new player object that is currently in the 'outside' room.
 
 player = Player(input("enter your name: "), room['outside'])
-
+player.items.append(rock)
+player.items.append(sandwich)
 print(f"Hello , {player.name}")
 
 
@@ -60,9 +61,6 @@ print(f"Hello , {player.name}")
 
 # LOOP
 while True:
-    print(player.current_room.name)
-    print("")
-    print(player.current_room.description)
     # READ
     cmd = input("\n~~~> ")
     # EVAL
@@ -71,5 +69,7 @@ while True:
         exit(0)
     elif cmd in ("n", "s", "e", "w"):
         player.travel(cmd)
+    elif cmd == 'i':
+        player.print_inventory()
     else:
         print("I did not understand the command!")

@@ -9,3 +9,25 @@ class Room:
         self.e_to = None
         self.s_to = None
         self.w_to = None
+        self.list = []
+
+    def __str__(self):
+        return_string = "______\n"
+        return_string += self.name
+        return_string += self.description
+        return_string += f"{self.get_exits_string()}"
+        return return_string
+
+
+    def get_exits_string(self):
+        exits = []
+        if self.n_to:
+            exits.append("n")
+        if self.s_to:
+            exits.append("s")
+        if self.e_to is not None:
+            exits.append("e")
+        if self.w_to is not None:
+            exits.append("w")
+        return exits
+
