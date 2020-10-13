@@ -78,22 +78,8 @@ while True:
             player.print_inventory()
     if len(cmd_list) == 2:
         if cmd_list[0] == 'take':
-            for item in player.current_room.items:
-                if item.name == cmd_list[1]:
-                    player.items.append(item)
-            # player.current_room.items.remove(cmd_list[1])
-            print("the current room items list is: ")
-            player.current_room.get_items()
-            print("the player's items list is: ")
-            player.print_inventory()
+            player.take_item(cmd_list[1])
         if cmd_list[0] == 'drop':
-            player.current_room.items.append(cmd_list[1])
-            # player.items.remove(cmd_list[1])
-            print("the current room items list is: ")
-            for item in player.current_room.items:
-                print(f"{item}")
-            print("the player's items list is: ")
-            for item in player.items:
-                print(f"{item}")
+            player.drop_item(cmd_list[1])
     else:
         print("I did not understand the command!")

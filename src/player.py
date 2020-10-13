@@ -19,3 +19,23 @@ class Player:
         print("holding:")
         for item in self.items:
             print(item.name)
+
+    def take_item(self, item_name):
+        for item in self.current_room.items:
+            if item.name == item_name:
+                self.items.append(item)
+                self.current_room.items.remove(item)
+        print("the current room items list is: ")
+        self.current_room.get_items()
+        print("the player's items list is: ")
+        self.print_inventory()
+
+    def drop_item(self, item_name):
+        for item in self.items:
+            if item.name == item_name:
+                self.current_room.items.append(item)
+                self.items.remove(item)
+        print("the current room items list is: ")
+        self.current_room.get_items()
+        print("the player's items list is: ")
+        self.print_inventory()
